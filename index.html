@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>校招岗位推荐平台</title>
+    <meta
+      name="description"
+      content="先导入公司在招岗位库，后续录入研究方向或研究领域，自动推荐最适合的岗位。"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="回到首页">
+        <span class="brand-mark">✦</span>
+        <span>校招岗位推荐平台</span>
+      </a>
+      <nav aria-label="主导航">
+        <a href="#top">首页</a>
+        <a href="#candidate-intake">推荐岗位</a>
+        <a href="#job-import">岗位库</a>
+        <a href="#feedback">欢迎评论</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <h1 id="hero-title">校招岗位推荐平台</h1>
+          <p class="hero-copy">
+            输入研究方向或研究领域，即可快速为你推荐合适岗位。
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#candidate-intake">推荐岗位</a>
+            <a class="button secondary" href="#job-import">查看岗位库</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="candidate-intake" class="section workspace-section" aria-labelledby="candidate-title">
+        <div class="section-heading">
+          <p class="eyebrow">Step 1</p>
+          <h2 id="candidate-title">推荐岗位</h2>
+        </div>
+
+        <div class="workspace-layout">
+          <section class="matcher" aria-label="候选人匹配">
+            <div class="candidate-input">
+              <div class="recommend-control-row">
+                <div class="source-panel active" data-source-panel="research">
+                  <label for="research-field">研究方向&研究领域</label>
+                  <input
+                    id="research-field"
+                    class="text-field"
+                    type="text"
+                    placeholder="输入研究方向或研究领域，例如：多模态、生成、具身、世界模型"
+                  />
+                </div>
+
+                <div class="filters">
+                  <div>
+                    <label for="department-filter">业务部门</label>
+                    <select id="department-filter" class="select-field">
+                      <option value="">全部部门</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="location-filter">base地</label>
+                    <select id="location-filter" class="select-field">
+                      <option value="">全部地点</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="result-limit">推荐岗位数量</label>
+                    <select id="result-limit" class="select-field">
+                      <option value="">默认 6 个</option>
+                      <option value="1">1 个</option>
+                      <option value="2">2 个</option>
+                      <option value="3">3 个</option>
+                      <option value="4">4 个</option>
+                      <option value="5">5 个</option>
+                      <option value="6">6 个</option>
+                      <option value="7">7 个</option>
+                      <option value="8">8 个</option>
+                      <option value="9">9 个</option>
+                      <option value="10">10 个</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="input-actions">
+                <button class="button primary" id="match-button" type="button">生成推荐岗位</button>
+              </div>
+            </div>
+
+            <div class="results" aria-live="polite">
+              <div class="panel-header">
+                <div>
+                  <p class="eyebrow">推荐结果</p>
+                  <h3>最适合的岗位</h3>
+                </div>
+                <span id="analysis-status">待分析</span>
+              </div>
+              <div class="selected-job-tools" id="selected-job-tools" hidden>
+                <span id="selected-job-count">已选择 0 个岗位</span>
+                <button class="copy-selected-button" id="copy-selected-jobs" type="button">一键复制已选链接</button>
+                <button class="clear-selected-button" id="clear-selected-jobs" type="button">清空选择</button>
+                <em id="selected-copy-status" aria-live="polite"></em>
+              </div>
+              <div id="match-results" class="match-results empty-state">
+                录入研究方向后点击“生成推荐岗位”，这里会展示推荐岗位、推荐等级、岗位链接和人工反馈。未选择推荐数量时默认展示 6 个。
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section id="job-import" class="section job-section" aria-labelledby="job-title">
+        <div class="section-heading">
+          <p class="eyebrow">Step 2</p>
+          <h2 id="job-title">岗位库</h2>
+          <p>当前已内置 171 个阿里星岗位。后续可以继续用 CSV 临时替换岗位库。</p>
+        </div>
+        <aside class="job-library" aria-label="岗位库">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">当前岗位库</p>
+              <h3>已导入岗位</h3>
+            </div>
+            <div class="job-header-actions">
+              <span id="job-count">171 个</span>
+              <label class="import-job-button is-locked" for="job-file" aria-disabled="true" title="仅平台所有者可操作">导入岗位</label>
+              <input id="job-file" class="visually-hidden-file" type="file" accept=".csv,text/csv" disabled />
+            </div>
+          </div>
+          <div class="job-search-box">
+            <label for="job-search">搜索在招岗位</label>
+            <input
+              id="job-search"
+              class="text-field"
+              type="search"
+              placeholder="输入岗位名称关键词，如多模态、生成、具身、世界模型等"
+            />
+          </div>
+          <div id="job-list" class="job-list"></div>
+        </aside>
+      </section>
+
+      <section id="feedback" class="section feedback-section">
+        <div class="section-heading">
+          <p class="eyebrow">Comment</p>
+          <h2>欢迎评论</h2>
+          <p>无需登录即可发布评论或使用体验，革命尚未成功，还需大家多多指出不足！</p>
+        </div>
+        <div class="comment-board">
+          <div class="feedback-form">
+            <label for="comment-name">昵称</label>
+            <input id="comment-name" class="text-field" type="text" placeholder="如深海的大菠萝" />
+            <label for="comment-text">评论内容</label>
+            <textarea id="comment-text" rows="5" placeholder="走过路过，留下痕迹～"></textarea>
+            <div class="comment-actions">
+              <button class="button primary" id="comment-submit" type="button">发布评论</button>
+              <small id="comment-status" aria-live="polite"></small>
+            </div>
+          </div>
+          <div id="comment-list" class="comment-list empty-state">暂无评论，欢迎留下第一条反馈。</div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>© 2026 校招岗位推荐平台</span>
+      <div class="site-owner-contact" aria-label="联系站长">
+        <span>联系站长</span>
+        <button class="social-link wechat" type="button" data-contact-target="wechat" aria-label="微信">
+          <span class="social-icon">微</span>
+        </button>
+        <button class="social-link xhs" type="button" data-contact-target="xhs" aria-label="小红书">
+          <span class="social-icon">RED</span>
+        </button>
+        <button class="social-link email" type="button" data-contact-target="email" aria-label="邮箱">
+          <span class="social-icon">@</span>
+        </button>
+        <div class="contact-popover" data-contact-panel="wechat" hidden>
+          <strong>微信</strong>
+          <img src="./assets/wechat-qr.png" alt="工作微信二维码" />
+        </div>
+        <div class="contact-popover" data-contact-panel="xhs" hidden>
+          <strong>小红书</strong>
+          <img src="./assets/xhs-qr.jpg" alt="小红书二维码" />
+        </div>
+        <div class="contact-popover email-popover" data-contact-panel="email" hidden>
+          <strong>邮箱</strong>
+          <button class="email-copy" type="button" data-copy-email="siqiong_peng0706@163.com">siqiong_peng0706@163.com</button>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./jobs-data.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
